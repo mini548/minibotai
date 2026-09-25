@@ -1,6 +1,7 @@
 import asyncio
 import json
 import time
+import os
 import requests
 import discord
 from discord.ext import commands
@@ -8,11 +9,11 @@ from discord import app_commands
 
 
 # =========================================================
-# 🔐 只需要填這 2 個
+# 🔐 GitHub Secrets
 # =========================================================
 
-NVIDIA_API_KEY = ""
-DISCORD_TOKEN = ""
+NVIDIA_API_KEY = os.getenv("NVIDIA_API_KEY")
+DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
 
 
 # =========================================================
@@ -764,14 +765,14 @@ async def on_ready():
 
 
 if __name__ == "__main__":
-    if NVIDIA_API_KEY == "你的NVIDIA_API_Key":
+    if not NVIDIA_API_KEY:
         raise SystemExit(
-            "❌ 請先填入 NVIDIA_API_KEY"
+            "❌ 找不到 NVIDIA_API_KEY"
         )
 
-    if DISCORD_TOKEN == "你的Discord_Bot_Token":
+    if not DISCORD_TOKEN:
         raise SystemExit(
-            "❌ 請先填入 DISCORD_TOKEN"
+            "❌ 找不到 DISCORD_TOKEN"
         )
 
     bot.run(DISCORD_TOKEN)
